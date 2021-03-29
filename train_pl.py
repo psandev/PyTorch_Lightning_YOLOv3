@@ -140,7 +140,7 @@ def objective(trial: optuna.trial.Trial) -> float:
         checkpoint_callback=False,
         max_epochs=5,
         gpus=-1 if torch.cuda.is_available() else None,
-        callbacks=[PyTorchLightningPruningCallback(trial, monitor="val_acc")],
+        callbacks=[PyTorchLightningPruningCallback(trial, monitor="val_loss_epoch")],
     )
     hyperparameters = dict(optim=optimizer_name,
                            lr_a=lr_a,
