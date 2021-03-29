@@ -1,0 +1,47 @@
+run:
+  epochs: 100
+  batch_size: 8
+  img_size: 416
+  detect: False
+  model_def: config/yolov3.cfg
+  pretrained_weights: weights/yolov3.weights
+  apply_focal_loss: False
+  hp_optimize: True
+  dradient_accumulations: 2
+  n_cpu: 8
+  checkpoint_interval: 1
+  evaluation_interval: 1
+  compute_map: False
+  multiscale_training: True
+  verbose: False
+  metrics: coco
+    "grid_size",
+    "loss",
+    "x",
+    "y",
+    "w",
+    "h",
+    "conf",
+    "cls",
+    "cls_acc",
+    "recall50",
+    "recall75",
+    "precision",
+    "conf_obj",
+    "conf_noobj",
+    ]
+
+data:
+  cache: False
+  cache_path: /media/peter/NVME/coco_serialized
+  train: data/trainvalno5k.txt
+  val: data/5k.txt
+  names: data/coco.names
+  backup: backup/
+  eval: coco
+
+detect:
+  iou_thres: 0.5
+  conf_thres: 0.5
+  nms_thres: 0.5
+
