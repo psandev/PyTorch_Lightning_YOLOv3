@@ -1,7 +1,7 @@
 This is a YOLOv3 implemented in Pytorch.
 The model parsing and original loss were taken from this excelet repo [Pytorch-YOLOv3](https://github.com/eriklindernoren/PyTorch-YOLOv3).
 
-##My contributions:
+## My contributions:
 * Focal loss
 * Caching dataset
 * [Albumetations](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/) transforms
