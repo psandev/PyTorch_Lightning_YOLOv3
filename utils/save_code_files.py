@@ -23,7 +23,7 @@ def save_code_files(output_path, root_path):
     dst_dir = os.path.join(output_path, 'code')
     if os.path.exists(dst_dir):
         shutil.rmtree(dst_dir)
-    shutil.copytree(root_path, dst_dir, ignore=match_patterns(include=['*.py', '*.yaml'],
+    shutil.copytree(root_path, dst_dir, ignore=match_patterns(include=['*.py', '*.yaml', '*.data', '*.cfg'],
                                                               exclude=['experiment*',
                                                                        '*.idea',
                                                                        '*__pycache__',

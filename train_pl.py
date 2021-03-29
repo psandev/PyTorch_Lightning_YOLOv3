@@ -2,7 +2,7 @@ import pytorch_lightning as pl
 from pytorch_lightning.loggers import WandbLogger, TensorBoardLogger
 from pytorch_lightning.callbacks import GPUStatsMonitor, ModelCheckpoint
 from utils.save_code_files import *
-from models import *
+from models_focal import *
 import logging
 from utils.datasets_albumentations import ListDataset as List_alb
 from utils.datasets_albumentations import get_transform
@@ -56,7 +56,7 @@ class NET(pl.LightningModule):
         return self.model(x, targets)
 
     def configure_optimizers(self):
-        return torch.optim.AdamW(self.model.parameters(), lr=1e-4)
+        return Ranger(self.model.parameters(), lr=1e-4, weight_decay=1e-5, eps=1e-9)
 
     def training_step(self, batch, batch_idx):
         imgs, targets = batch[1:]
@@ -140,7 +140,7 @@ def objective(trial: optuna.trial.Trial) -> float:
         checkpoint_callback=False,
         max_epochs=5,
         gpus=-1 if torch.cuda.is_available() else None,
-        callbacks=[PyTorchLightningPruningCallback(trial, monitor="val_acc")],
+        callbacks=[PyTorchLightningPruningCallback(trial, monitor="val_loss_epoch")],
     )
     hyperparameters = dict(optim=optimizer_name,
                            lr_a=lr_a,
